@@ -56,3 +56,16 @@ body, html {
     background-color: #f4ece1 !important;
     color: #555 !important;
 }
+
+.nombre-ciudad span {
+    color: #f4d35e;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow:
+        2px 2px 4px black,
+        -2px -2px 4px black,
+        2px -2px 4px black,
+        -2px 2px 4px black;
+    cursor: pointer;
+    user-select: none;
+}

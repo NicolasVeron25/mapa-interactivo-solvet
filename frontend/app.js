@@ -35,7 +35,17 @@ const respuesta = await fetch('https://mapa-interactivo-solvet-backend.onrender.
     asentamientos.forEach(lugar => {
       // Leaflet usa el formato [Y, X] para las coordenadas.
       // Fíjate que usamos .addTo(mapa) respetando el nombre de tu variable
-      const marcador = L.marker([lugar.coordenada_y, lugar.coordenada_x]).addTo(mapa);
+
+      const marcador = L.marker(
+    [lugar.coordenada_y, lugar.coordenada_x],
+    {
+        icon: L.divIcon({
+            className: 'nombre-ciudad',
+            html: `<span>${lugar.nombre}</span>`,
+            iconSize: [120, 20]
+        })
+    }
+).addTo(mapa);
 
       // 3. Le armamos la ventana emergente con el nombre y descripción
       marcador.bindPopup(`
