@@ -1,29 +1,34 @@
 // 1. Inicializar el mapa
-// Le decimos a Leaflet que use "CRS.Simple" porque es una imagen plana, no un globo terráqueo.
 const mapa = L.map('mapa-solvet', {
-    crs: L.CRS.Simple,
-    minZoom: -1, // Permite alejar la cámara
-    maxZoom: 0   // Permite acercar la cámara
+
+    crs: L.CRS.Simple, // Le decimos a Leaflet que use "CRS.Simple" porque es una imagen plana, no un globo terráqueo.
+    minZoom: -2, // Permite alejar la camara
+    maxZoom: 2,   // Permite acercar la camara
+    zoomControl: false, // Desactivar el control de zoom por defecto
+    attributionControl: false, // Saca el Leaflet
+    zoomSnap: 0.1,        // Permite niveles de zoom decimales (ej: 0.1, 0.2) en vez de saltos enteros (1, 2).
+    zoomDelta: 0.1,       // Cuánto se acerca/aleja al usar los botones de + y -.
+    wheelPxPerZoomLevel: 200 // Sensibilidad de la rueda del ratón. (Más alto = zoom más suave/lento).
+
 });
 
-// 2. Definir los límites del mapa según tus píxeles
+// 2. Definir los limites del mapa
 const limites = [[0, 0], [1536, 2816]];
 
-// 3. Montar tu imagen en el mapa
+// 3. Montar la imagen en el mapa
 L.imageOverlay('mapa.png', limites).addTo(mapa);
 
-// 4. Centrar la cámara
+// 4. Centrar la camara
 mapa.fitBounds(limites);
 
-// =========================================================
-// 5. CONEXIÓN AL BACKEND (LA BASE DE DATOS EN SUPABASE)
-// =========================================================
+// 5. Conexion al Backend en Supabase
 
-// Función asíncrona para pedirle el Lore a tu servidor backend
+// 5.1 Funcion asincrona para pedirle el Lore al Servidor backend
 async function cargarAsentamientos() {
   try {
     // 1. Tocamos la puerta de tu servidor local
-    const respuesta = await fetch('http://localhost:3000/api/asentamientos');
+    // Tocamos la puerta de tu nuevo servidor en la nube
+const respuesta = await fetch('https://mapa-interactivo-solvet-backend.onrender.com/api/asentamientos');
     const asentamientos = await respuesta.json();
 
     // 2. Por cada asentamiento que nos devuelva, creamos un pin

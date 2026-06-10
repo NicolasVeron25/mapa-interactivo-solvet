@@ -1,13 +1,58 @@
-/* Quitamos los márgenes por defecto del navegador */
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #1a1a1a; /* Un gris muy oscuro */
+    width: 100%;
+    overflow: hidden;
+    font-family: sans-serif;
 }
 
-/* Le decimos al contenedor del mapa que ocupe el 100% del espacio */
+.pantalla-completa {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* El mapa de fondo difuminado */
+.fondo-borroso {
+    position: absolute;
+    top: -30px; left: -30px; right: -30px; bottom: -30px;
+    background-image: url('mapa.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(15px);
+    z-index: 1; /* Al fondo */
+}
+
+/* Capa oscura/patrón para dar textura */
+.capa-oscura {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 10px 10px;
+    z-index: 2;
+}
+
+/* EL CAMBIO CLAVE: Leaflet pantalla completa y transparente */
 #mapa-solvet {
-    height: 100vh; /* 100% del alto de la ventana */
-    width: 100vw;  /* 100% del ancho de la ventana */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    /* Forzamos la transparencia para que se vea el fondo borroso de abajo */
+    background-color: transparent !important; 
+    z-index: 10; 
+}
+
+
+/* Estilo opcional para los botones de zoom nativos de Leaflet */
+.leaflet-transition-container, .leaflet-control-zoom {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5) !important;
+    border: none !important;
+}
+.leaflet-control-zoom-in, .leaflet-control-zoom-out {
+    background-color: #f4ece1 !important;
+    color: #555 !important;
 }
